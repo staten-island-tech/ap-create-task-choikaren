@@ -868,10 +868,26 @@ try {
   Function("r", "regeneratorRuntime = r")(runtime);
 }
 
+},{}],"js/DOM.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.DOMSelectors = void 0;
+var DOMSelectors = {
+  dataBox: document.querySelector(".data"),
+  userSearch: document.querySelector("#recipeSearch"),
+  submitBtn: document.querySelector("#submitBtn"),
+  recipe: document.querySelector(".recipe")
+};
+exports.DOMSelectors = DOMSelectors;
 },{}],"js/index.js":[function(require,module,exports) {
 "use strict";
 
 require("regenerator-runtime/runtime");
+
+var _DOM = require("./DOM");
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
@@ -916,39 +932,69 @@ var grabData = /*#__PURE__*/function () {
   };
 }();
 
-var displayData = /*#__PURE__*/function () {
-  var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-    var apiID, apiKey, query, response, dataResults;
-    return regeneratorRuntime.wrap(function _callee2$(_context2) {
-      while (1) {
-        switch (_context2.prev = _context2.next) {
-          case 0:
-            apiID = "95cb0047";
-            apiKey = "40c625a257418ae88ce46895dbab8f15";
-            query = "https://api.edamam.com/search?q=breakfast&app_id=".concat(apiID, "&app_key=").concat(apiKey);
-            _context2.next = 5;
-            return grabData(query);
+var init = function init() {
+  var apiID = "95cb0047";
+  var apiKey = "40c625a257418ae88ce46895dbab8f15";
+  var userInput;
 
-          case 5:
-            response = _context2.sent;
-            dataResults = response.data;
-            console.log(dataResults);
+  var displayData = /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+      var query, response, dataResults;
+      return regeneratorRuntime.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              query = "https://api.edamam.com/search?q=".concat(userInput, "&app_id=").concat(apiID, "&app_key=").concat(apiKey);
+              _context2.next = 3;
+              return grabData(query);
 
-          case 8:
-          case "end":
-            return _context2.stop();
+            case 3:
+              response = _context2.sent;
+              response;
+              dataResults = response.hits;
+              console.log(dataResults);
+              dataResults.forEach(function (recipeInstance) {
+                var healthLabelsArray = [];
+                recipeInstance.recipe.healthLabels.forEach(function (healthLabel) {
+                  healthLabelsArray.push(healthLabel);
+                });
+
+                _DOM.DOMSelectors.dataBox.insertAdjacentHTML("afterbegin", "\n            <a class=\"recipe\" href=\"".concat(recipeInstance.recipe.url, "\">\n                <div class=\"title\">").concat(recipeInstance.recipe.label, "</div>\n                <div>").concat(healthLabelsArray, "</div>  \n                <img src=\"").concat(recipeInstance.recipe.image, "\" >\n            </a>\n            "));
+              });
+              console.log(userInput);
+              console.log(query);
+
+            case 10:
+            case "end":
+              return _context2.stop();
+          }
         }
-      }
-    }, _callee2);
-  }));
+      }, _callee2);
+    }));
 
-  return function displayData() {
-    return _ref2.apply(this, arguments);
-  };
-}();
+    return function displayData() {
+      return _ref2.apply(this, arguments);
+    };
+  }();
 
-displayData();
-},{"regenerator-runtime/runtime":"../node_modules/regenerator-runtime/runtime.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+  displayData();
+
+  _DOM.DOMSelectors.submitBtn.addEventListener("click", function () {
+    userInput = _DOM.DOMSelectors.userSearch.value;
+    displayData();
+  });
+
+  _DOM.DOMSelectors.userSearch.addEventListener("keyup", function (event) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+
+      _DOM.DOMSelectors.submitBtn.click();
+    }
+  });
+};
+
+init();
+},{"regenerator-runtime/runtime":"../node_modules/regenerator-runtime/runtime.js","./DOM":"js/DOM.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -976,7 +1022,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54154" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55551" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
