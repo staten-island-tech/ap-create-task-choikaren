@@ -959,7 +959,7 @@ var init = function init() {
                   healthLabelsArray.push(healthLabel);
                 });
 
-                _DOM.DOMSelectors.dataBox.insertAdjacentHTML("afterbegin", "\n            <a class=\"recipe\" href=\"".concat(recipeInstance.recipe.url, "\">\n                <div class=\"title\">").concat(recipeInstance.recipe.label, "</div>\n                <div>").concat(healthLabelsArray, "</div>  \n                <img src=\"").concat(recipeInstance.recipe.image, "\" >\n            </a>\n            "));
+                _DOM.DOMSelectors.dataBox.insertAdjacentHTML("afterbegin", "\n            <a class=\"recipe\" href=\"".concat(recipeInstance.recipe.url, "\">\n                <div class=\"title\">").concat(recipeInstance.recipe.label, "</div>\n                <div>").concat(healthLabelsArray, "</div>  \n                <img src=\"").concat(recipeInstance.recipe.image, "\" >\n                <div>Save for Later</div>\n            </a>\n            "));
               });
               console.log(userInput);
               console.log(query);

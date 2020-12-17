@@ -8,17 +8,22 @@ body {
 
 body {
   background-color: #b5cabf;
-  padding: 4rem;
+  padding: 3rem;
 }
 
 .search {
-  max-width: 120rem;
+  width: 100%;
   margin: auto;
   padding-bottom: 2rem;
 }
+.search input {
+  width: 100%;
+  max-width: 30rem;
+}
 .search input, .search button {
-  height: 5rem;
-  font-size: 4rem;
+  height: 3rem;
+  font-size: 2rem;
+  font-family: "Libre Baskerville", serif;
 }
 .search button {
   display: none;
@@ -31,25 +36,31 @@ a {
 
 .data {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 3rem;
-  max-width: 120rem;
+  grid-template-columns: 1fr;
+  grid-gap: 1.5rem;
+  max-width: 70rem;
   margin: auto;
-  font-size: 1.7rem;
+  font-size: 1rem;
+  font-family: "Libre Baskerville", serif;
 }
 
-@media (min-width: 1500px) {
+@media (min-width: 600px) {
+  .data {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (min-width: 900px) {
   .data {
     grid-template-columns: 1fr 1fr 1fr;
   }
 }
 .title {
-  font-size: 3rem;
+  font-size: 1.3rem;
 }
 
 .recipe {
   background-color: #fffef1;
-  padding: 2rem;
+  padding: 1.2rem;
   display: grid;
   grid-gap: 1rem;
 }

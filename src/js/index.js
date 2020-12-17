@@ -40,6 +40,7 @@ const init = function () {
                 <div class="title">${recipeInstance.recipe.label}</div>
                 <div>${healthLabelsArray}</div>  
                 <img src="${recipeInstance.recipe.image}" >
+                <div>Save for Later</div>
             </a>
             `
             )
