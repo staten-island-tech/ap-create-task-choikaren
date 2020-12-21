@@ -1,6 +1,6 @@
 
 const DOMSelectors = {
-    dataBox: document.querySelector(".data"),
+    dataBox: document.querySelector("#data"),
     favoriteBox: document.querySelector(".favorites"),
     userSearch: document.querySelector("#recipeSearch"),
     submitBtn: document.querySelector("#submitBtn"),

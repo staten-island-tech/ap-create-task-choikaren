@@ -876,7 +876,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.DOMSelectors = void 0;
 var DOMSelectors = {
-  dataBox: document.querySelector(".data"),
+  dataBox: document.querySelector("#data"),
   favoriteBox: document.querySelector(".favorites"),
   userSearch: document.querySelector("#recipeSearch"),
   submitBtn: document.querySelector("#submitBtn"),
@@ -1019,6 +1019,15 @@ var init = function init() {
     _DOM.DOMSelectors.favoriteBox.classList.toggle("display");
 
     _DOM.DOMSelectors.clearFavoriteBtn.classList.toggle("display");
+
+    switch (_DOM.DOMSelectors.favoriteBtn.innerHTML) {
+      case "See Saved Recipes":
+        _DOM.DOMSelectors.favoriteBtn.innerHTML = "Return to Search";
+        break;
+
+      default:
+        _DOM.DOMSelectors.favoriteBtn.innerHTML = "See Saved Recipes";
+    }
   }; //switch from search results recipes to favorites recipes
 
 
@@ -1045,7 +1054,6 @@ var init = function init() {
 
 
   _DOM.DOMSelectors.submitBtn.addEventListener("click", function () {
-    toggleRecipeData();
     userInput = _DOM.DOMSelectors.userSearch.value;
     displayData();
   });
@@ -1080,7 +1088,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65445" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58760" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

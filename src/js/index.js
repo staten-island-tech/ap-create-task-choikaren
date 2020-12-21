@@ -102,6 +102,14 @@ const init = function () {
     DOMSelectors.dataBox.classList.toggle("noDisplay");
     DOMSelectors.favoriteBox.classList.toggle("display");
     DOMSelectors.clearFavoriteBtn.classList.toggle("display");
+
+    switch (DOMSelectors.favoriteBtn.innerHTML) {
+        case "See Saved Recipes":
+            DOMSelectors.favoriteBtn.innerHTML = "Return to Search"
+            break;
+        default:
+            DOMSelectors.favoriteBtn.innerHTML = "See Saved Recipes";
+    }
   }
 
   //switch from search results recipes to favorites recipes
@@ -127,7 +135,7 @@ const init = function () {
 
   //display data
   DOMSelectors.submitBtn.addEventListener("click", function () {
-    toggleRecipeData();
+
     userInput = DOMSelectors.userSearch.value;
     displayData();
 

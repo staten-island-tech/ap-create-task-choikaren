@@ -16,6 +16,7 @@ body {
 
 .search {
     width: 100%;
+    max-width: 70rem;
     margin: auto;
 }
 
@@ -28,6 +29,9 @@ input,button {
     height: 3rem;
     font-size: 2rem;
 font-family: 'Libre Baskerville', serif;
+
+max-width: 70rem;
+margin: auto;
 }
 
 #submitBtn {
@@ -79,9 +83,18 @@ a {
     grid-gap: 1rem;
 }
 
+a {
+    display: grid;
+    grid-gap: 1rem;
+}
+
 
 img {
     width: 100%;
+}
+
+.healthLabels {
+    font-style: italic;
 }
 
 .saveForLaterBtn:hover {
