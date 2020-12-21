@@ -942,7 +942,7 @@ var init = function init() {
 
   var displayData = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-      var query, response, dataResults, saveBtns, saveForLaterArray, recipe, recipeArray, savedArray, displaySaved, saved;
+      var query, response, dataResults;
       return regeneratorRuntime.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
@@ -953,57 +953,21 @@ var init = function init() {
 
             case 3:
               response = _context2.sent;
-              response;
               dataResults = response.hits;
-              console.log(dataResults);
+              console.log(dataResults); //display data function
+
               dataResults.forEach(function (recipeInstance) {
+                //compile health label array into one string
                 var healthLabelsArray = [];
                 recipeInstance.recipe.healthLabels.forEach(function (healthLabel) {
                   healthLabelsArray.push(healthLabel);
-                });
+                }); //create each recipe card
 
-                _DOM.DOMSelectors.dataBox.insertAdjacentHTML("afterbegin", "\n                <div class=\"recipe\">\n                    <a  href=\"".concat(recipeInstance.recipe.url, "\">\n                        <div class=\"title\">").concat(recipeInstance.recipe.label, "</div>\n                        <div class=\"healthLabels\">").concat(healthLabelsArray, "</div>  \n                        <img src=\"").concat(recipeInstance.recipe.image, "\" >\n                        <div class=\"link hidden\">").concat(recipeInstance.recipe.url, "</div>\n                        <div class=\"imgSrc hidden\" >").concat(recipeInstance.recipe.image, "</div>\n                    </a>\n                \n                    <div class=\"saveForLaterBtn\" >Save for Later</div>\n                </div>\n\n            "));
+                _DOM.DOMSelectors.dataBox.insertAdjacentHTML("afterbegin", "\n                <div class=\"recipe\">\n                    <a  href=\"".concat(recipeInstance.recipe.url, "\">\n                        <div class=\"title\">").concat(recipeInstance.recipe.label, "</div>\n                        <div class=\"healthLabels\">").concat(healthLabelsArray, "</div>  \n                        <img src=\"").concat(recipeInstance.recipe.image, "\" >\n                        <div class=\"link hidden\">").concat(recipeInstance.recipe.url, "</div>\n                        <div class=\"imgSrc hidden\" >").concat(recipeInstance.recipe.image, "</div>\n                    </a>\n                    <div class=\"saveForLaterBtn\" >Save for Later?</div>\n                </div>\n            "));
               });
-              console.log(userInput);
-              console.log(query);
-              saveBtns = document.getElementsByClassName("saveForLaterBtn");
-              saveForLaterArray = Array.from(saveBtns);
-              recipe = document.getElementsByClassName("recipe");
-              recipeArray = Array.from(recipe);
-              console.log(saveForLaterArray);
-              console.log(recipeArray);
-              savedArray = [];
+              saveRecipe();
 
-              displaySaved = function displaySaved() {
-                savedArray.forEach(function (savedRecipe) {
-                  // DOMSelectors.favoriteBox.innerHTML= "";
-                  _DOM.DOMSelectors.favoriteBox.insertAdjacentHTML("afterbegin", "\n                  <div class=\"recipe\">\n                      <a  href=\"".concat(savedRecipe.link, "\">\n                          <div class=\"title\">").concat(savedRecipe.title, "</div>\n                          <div class=\"healthLabels\">").concat(savedRecipe.labels, "</div>  \n                          <img src=\"").concat(savedRecipe.imgSrc, "\" >\n                      </a>\n                  \n                  </div>\n  \n                  "));
-                });
-              };
-
-              saved = function saved() {
-                recipeArray.forEach(function (recipe) {
-                  recipe.children[1].addEventListener("click", function () {
-                    recipe.children[1].classList.add("bold");
-                    recipe.children[1].innerHTML = "Added to Favorites";
-                    var savedRecipe = {
-                      title: recipe.children[0].children[0].textContent,
-                      labels: recipe.children[0].children[1].textContent,
-                      link: recipe.children[0].children[3].textContent,
-                      imgSrc: recipe.children[0].children[4].textContent
-                    }; // console.log(savedRecipe);
-
-                    savedArray.push(savedRecipe);
-                    console.log(savedArray);
-                    displaySaved();
-                  });
-                });
-              };
-
-              saved();
-              displaySaved();
-
-            case 21:
+            case 8:
             case "end":
               return _context2.stop();
           }
@@ -1014,27 +978,62 @@ var init = function init() {
     return function displayData() {
       return _ref2.apply(this, arguments);
     };
-  }();
+  }(); //display default data
 
-  displayData();
 
-  _DOM.DOMSelectors.favoriteBtn.addEventListener("click", function () {
+  displayData(); //array of favorited recipes
+
+  var savedArray = [];
+
+  var saveRecipe = function saveRecipe() {
+    //array of recipes present at current moment
+    var recipeArray = Array.from(document.getElementsByClassName("recipe")); //for current recipes on screen, if the save for later btn is clicked, add selected recipe to new array for data to be saved
+
+    recipeArray.forEach(function (recipe) {
+      recipe.children[1].addEventListener("click", function () {
+        recipe.children[1].classList.add("bold");
+        recipe.children[1].innerHTML = "Added to Saved Recipes"; //get info of favorited recipe
+
+        var savedRecipe = {
+          title: recipe.children[0].children[0].textContent,
+          labels: recipe.children[0].children[1].textContent,
+          link: recipe.children[0].children[3].textContent,
+          imgSrc: recipe.children[0].children[4].textContent
+        }; //push info to save info of favorited recipe
+
+        savedArray.push(savedRecipe);
+      });
+    });
+  };
+
+  var displaySavedRecipes = function displaySavedRecipes() {
+    _DOM.DOMSelectors.favoriteBox.innerHTML = "";
+    savedArray.forEach(function (savedRecipe) {
+      _DOM.DOMSelectors.favoriteBox.insertAdjacentHTML("afterbegin", "\n              <div class=\"recipe\">\n                  <a  href=\"".concat(savedRecipe.link, "\">\n                      <div class=\"title\">").concat(savedRecipe.title, "</div>\n                      <div class=\"healthLabels\">").concat(savedRecipe.labels, "</div>  \n                      <img src=\"").concat(savedRecipe.imgSrc, "\" >\n                  </a>\n              </div>\n              "));
+    });
+  };
+
+  var toggleRecipeData = function toggleRecipeData() {
     _DOM.DOMSelectors.dataBox.classList.toggle("noDisplay");
 
     _DOM.DOMSelectors.favoriteBox.classList.toggle("display");
 
     _DOM.DOMSelectors.clearFavoriteBtn.classList.toggle("display");
-  });
+  }; //switch from search results recipes to favorites recipes
+
+
+  _DOM.DOMSelectors.favoriteBtn.addEventListener("click", function () {
+    toggleRecipeData();
+    displaySavedRecipes();
+  }); //remove favorited(saved) recipes from array
+
 
   _DOM.DOMSelectors.clearFavoriteBtn.addEventListener("click", function () {
-    var savedArray = [];
-    displaySaved();
-  });
+    savedArray = []; //display newly emptied array
 
-  _DOM.DOMSelectors.submitBtn.addEventListener("click", function () {
-    userInput = _DOM.DOMSelectors.userSearch.value;
-    displayData();
-  });
+    displaySavedRecipes();
+  }); //submit = keyup enter key
+
 
   _DOM.DOMSelectors.userSearch.addEventListener("keyup", function (event) {
     if (event.key === "Enter") {
@@ -1042,6 +1041,13 @@ var init = function init() {
 
       _DOM.DOMSelectors.submitBtn.click();
     }
+  }); //display data
+
+
+  _DOM.DOMSelectors.submitBtn.addEventListener("click", function () {
+    toggleRecipeData();
+    userInput = _DOM.DOMSelectors.userSearch.value;
+    displayData();
   });
 };
 
