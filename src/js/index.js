@@ -25,7 +25,7 @@ const init = function () {
 
 
     
-    DOMSelectors.dataBox.innerHTML = "";
+      DOMSelectors.dataBox.innerHTML = "";
     //display data function
     dataResults.forEach(function (recipeInstance) {
       //compile health label array into one string
@@ -50,6 +50,7 @@ const init = function () {
                 </div>
             `
       );
+
     });
     saveRecipe();
   };
@@ -83,6 +84,7 @@ const init = function () {
       });
     });
   };
+  
 
   const displaySavedRecipes = function () {
     DOMSelectors.favoriteBox.innerHTML = "";

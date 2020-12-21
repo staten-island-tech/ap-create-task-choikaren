@@ -7,10 +7,16 @@ body {
 }
 
 body {
-  background-color: #b5cabf;
   padding: 3rem;
   display: grid;
   grid-row-gap: 2rem;
+  font-family: "Libre Baskerville", serif !important;
+}
+
+.heading {
+  max-width: 70rem;
+  margin: auto;
+  font-size: 3.2rem;
 }
 
 .search {
@@ -21,23 +27,35 @@ body {
 
 input {
   width: 100%;
-  max-width: 30rem;
 }
 
-input, button {
+input,
+button {
   height: 3rem;
-  font-size: 2rem;
+  font-size: 1.2rem;
+  line-height: 3rem;
   font-family: "Libre Baskerville", serif;
+}
+
+.recipeBtns {
   max-width: 70rem;
   margin: auto;
+  width: 100%;
+}
+
+button {
+  outline: none;
+  border: none;
+  margin-bottom: 0.5rem;
+}
+
+button:hover {
+  cursor: pointer;
+  font-style: italic;
 }
 
 #submitBtn {
   display: none;
-}
-
-#favoriteBtn {
-  width: 20rem;
 }
 
 a {
@@ -52,7 +70,6 @@ a {
   max-width: 70rem;
   margin: auto;
   font-size: 1rem;
-  font-family: "Libre Baskerville", serif;
 }
 
 @media (min-width: 600px) {
@@ -62,6 +79,7 @@ a {
 }
 @media (min-width: 900px) {
   .recipeContainer {
+    grid-gap: 2.2rem;
     grid-template-columns: 1fr 1fr 1fr;
   }
 }
@@ -70,7 +88,7 @@ a {
 }
 
 .recipe {
-  background-color: #fffef1;
+  outline: solid black 0.1rem;
   padding: 1.2rem;
   display: grid;
   grid-gap: 1rem;

@@ -1,20 +1,27 @@
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AP Task</title>
     <link rel="stylesheet" href="/scss.6b84482b.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Langar&family=Libre+Baskerville&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Langar&family=Libre+Baskerville&display=swap" rel="stylesheet">
 <script src="/scss.6b84482b.js"></script></head>
+
 <body>
+    <header>
+        <div class="heading">Recipe Collection</div>
+    </header>
     <section class="search">
         <input type="text" placeholder="Search for a Recipe.." id="recipeSearch">
         <button id="submitBtn">Submit</button>
     </section>
-    
-    <button id="favoriteBtn">See Saved Recipes</button>
-    <button id="clearFavoriteBtn">Clear Saved Recipes</button>
+
+    <section class="recipeBtns">
+        <button id="favoriteBtn" class="display">See Saved Recipes</button>
+        <button id="clearFavoriteBtn">Clear Saved Recipes</button>
+    </section>
     <section class="recipeContainer" id="data">
 
     </section>
@@ -22,4 +29,5 @@
 </body>
 
 <script src="/js.00a46daa.js"></script>
+
 </html>
