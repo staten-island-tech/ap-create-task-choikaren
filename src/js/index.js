@@ -28,7 +28,8 @@ const init = function () {
         const dataResults = response.hits;
         console.log(dataResults);
 
-        dataResults.forEach(function(recipeInstance) {
+
+        dataResults.forEach(function (recipeInstance) {
             let healthLabelsArray = [];
             recipeInstance.recipe.healthLabels.forEach(function (healthLabel) {
                 healthLabelsArray.push(healthLabel);
@@ -36,12 +37,18 @@ const init = function () {
 
             DOMSelectors.dataBox.insertAdjacentHTML("afterbegin",
                 `
-            <a class="recipe" href="${recipeInstance.recipe.url}">
-                <div class="title">${recipeInstance.recipe.label}</div>
-                <div>${healthLabelsArray}</div>  
-                <img src="${recipeInstance.recipe.image}" >
-                <div>Save for Later</div>
-            </a>
+                <div class="recipe">
+                    <a  href="${recipeInstance.recipe.url}">
+                        <div class="title">${recipeInstance.recipe.label}</div>
+                        <div class="healthLabels">${healthLabelsArray}</div>  
+                        <img src="${recipeInstance.recipe.image}" >
+                        <div class="link hidden">${recipeInstance.recipe.url}</div>
+                        <div class="imgSrc hidden" >${recipeInstance.recipe.image}</div>
+                    </a>
+                
+                    <div class="saveForLaterBtn" >Save for Later</div>
+                </div>
+
             `
             )
 
@@ -49,8 +56,75 @@ const init = function () {
         )
         console.log(userInput);
         console.log(query)
+
+        const saveBtns = document.getElementsByClassName("saveForLaterBtn");
+        const saveForLaterArray = Array.from(saveBtns);
+
+        const recipe = document.getElementsByClassName("recipe");
+        const recipeArray = Array.from(recipe);
+
+        console.log(saveForLaterArray);
+        console.log(recipeArray);
+
+        const saved = function () {
+            let savedArray = [];
+
+            const displaySaved = function () {
+                savedArray.forEach(function (savedRecipe) {
+                    DOMSelectors.favoriteBox.insertAdjacentHTML("afterbegin",
+                        `
+                    <div class="recipe">
+                        <a  href="${savedRecipe.imgSrc}">
+                            <div class="title">${savedRecipe.title}</div>
+                            <div class="healthLabels">${savedRecipe.labels}</div>  
+                            <img src="${savedRecipe.imgSrc}" >
+                        </a>
+                    
+                    </div>
+    
+                    `
+                    )
+                })
+            };
+
+            recipeArray.forEach(function (recipe) {
+                recipe.children[1].addEventListener("click", function () {
+                    recipe.children[1].classList.add("bold");
+                    recipe.children[1].innerHTML = "Added to Favorites";
+
+                    let savedRecipe = {
+                        "title": recipe.children[0].children[0].textContent,
+                        "labels": recipe.children[0].children[1].textContent,
+                        "link": recipe.children[0].children[3].textContent,
+                        "imgSrc": recipe.children[0].children[4].textContent,
+
+                    }
+                    // console.log(savedRecipe);
+
+                    savedArray.push(savedRecipe);
+                    console.log(savedArray);
+                    displaySaved();
+
+                })
+            }
+            );
+
+
+        }
+        saved();
+
+        DOMSelectors.favoriteBtn.addEventListener("click", function () {
+            DOMSelectors.dataBox.classList.toggle("noDisplay");
+            DOMSelectors.favoriteBox.classList.toggle("display")
+        }
+        )
+
+
     };
     displayData();
+
+
+
 
 
     DOMSelectors.submitBtn.addEventListener("click", function () {

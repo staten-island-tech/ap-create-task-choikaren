@@ -877,8 +877,10 @@ Object.defineProperty(exports, "__esModule", {
 exports.DOMSelectors = void 0;
 var DOMSelectors = {
   dataBox: document.querySelector(".data"),
+  favoriteBox: document.querySelector(".favorites"),
   userSearch: document.querySelector("#recipeSearch"),
   submitBtn: document.querySelector("#submitBtn"),
+  favoriteBtn: document.querySelector("#favoriteBtn"),
   recipe: document.querySelector(".recipe")
 };
 exports.DOMSelectors = DOMSelectors;
@@ -939,7 +941,7 @@ var init = function init() {
 
   var displayData = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-      var query, response, dataResults;
+      var query, response, dataResults, saveBtns, saveForLaterArray, recipe, recipeArray, saved;
       return regeneratorRuntime.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
@@ -959,12 +961,53 @@ var init = function init() {
                   healthLabelsArray.push(healthLabel);
                 });
 
-                _DOM.DOMSelectors.dataBox.insertAdjacentHTML("afterbegin", "\n            <a class=\"recipe\" href=\"".concat(recipeInstance.recipe.url, "\">\n                <div class=\"title\">").concat(recipeInstance.recipe.label, "</div>\n                <div>").concat(healthLabelsArray, "</div>  \n                <img src=\"").concat(recipeInstance.recipe.image, "\" >\n                <div>Save for Later</div>\n            </a>\n            "));
+                _DOM.DOMSelectors.dataBox.insertAdjacentHTML("afterbegin", "\n                <div class=\"recipe\">\n                    <a  href=\"".concat(recipeInstance.recipe.url, "\">\n                        <div class=\"title\">").concat(recipeInstance.recipe.label, "</div>\n                        <div class=\"healthLabels\">").concat(healthLabelsArray, "</div>  \n                        <img src=\"").concat(recipeInstance.recipe.image, "\" >\n                        <div class=\"link hidden\">").concat(recipeInstance.recipe.url, "</div>\n                        <div class=\"imgSrc hidden\" >").concat(recipeInstance.recipe.image, "</div>\n                    </a>\n                \n                    <div class=\"saveForLaterBtn\" >Save for Later</div>\n                </div>\n\n            "));
               });
               console.log(userInput);
               console.log(query);
+              saveBtns = document.getElementsByClassName("saveForLaterBtn");
+              saveForLaterArray = Array.from(saveBtns);
+              recipe = document.getElementsByClassName("recipe");
+              recipeArray = Array.from(recipe);
+              console.log(saveForLaterArray);
+              console.log(recipeArray);
 
-            case 10:
+              saved = function saved() {
+                var savedArray = [];
+
+                var displaySaved = function displaySaved() {
+                  savedArray.forEach(function (savedRecipe) {
+                    _DOM.DOMSelectors.favoriteBox.insertAdjacentHTML("afterbegin", "\n                    <div class=\"recipe\">\n                        <a  href=\"".concat(savedRecipe.imgSrc, "\">\n                            <div class=\"title\">").concat(savedRecipe.title, "</div>\n                            <div class=\"healthLabels\">").concat(savedRecipe.labels, "</div>  \n                            <img src=\"").concat(savedRecipe.imgSrc, "\" >\n                        </a>\n                    \n                    </div>\n    \n                    "));
+                  });
+                };
+
+                recipeArray.forEach(function (recipe) {
+                  recipe.children[1].addEventListener("click", function () {
+                    recipe.children[1].classList.add("bold");
+                    recipe.children[1].innerHTML = "Added to Favorites";
+                    var savedRecipe = {
+                      "title": recipe.children[0].children[0].textContent,
+                      "labels": recipe.children[0].children[1].textContent,
+                      "link": recipe.children[0].children[3].textContent,
+                      "imgSrc": recipe.children[0].children[4].textContent
+                    }; // console.log(savedRecipe);
+
+                    savedArray.push(savedRecipe);
+                    console.log(savedArray);
+                    displaySaved();
+                  });
+                });
+              };
+
+              saved();
+
+              _DOM.DOMSelectors.favoriteBtn.addEventListener("click", function () {
+                _DOM.DOMSelectors.dataBox.classList.toggle("noDisplay");
+
+                _DOM.DOMSelectors.favoriteBox.classList.toggle("display");
+              });
+
+            case 19:
             case "end":
               return _context2.stop();
           }
@@ -1022,7 +1065,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55551" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65445" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

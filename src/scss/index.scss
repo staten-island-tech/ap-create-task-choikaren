@@ -28,7 +28,7 @@ body {
     font-family: 'Libre Baskerville', serif;
     }
 
-    button {
+    #submitBtn {
         display: none;
     }
 }
@@ -40,7 +40,7 @@ a {
 }
 
 
-.data {
+.recipeContainer {
     display: grid;
     grid-template-columns: 1fr;
     grid-gap: 1.5rem;
@@ -51,13 +51,13 @@ a {
 }
 
 @media (min-width: 600px) {
-    .data {
+    .recipeContainer {
         grid-template-columns:1fr 1fr;
     }
 }
 
 @media (min-width: 900px) {
-    .data {
+    .recipeContainer {
         grid-template-columns: 1fr 1fr 1fr;
     }
 }
@@ -78,4 +78,28 @@ a {
 
 img {
     width: 100%;
+}
+
+.saveForLaterBtn:hover {
+    cursor: pointer;
+}
+
+.hidden {
+    display: none;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.favorites {
+    display: none;
+}
+
+.display {
+    display: grid;
+}
+
+.noDisplay {
+    display: none;
 }
