@@ -23,6 +23,9 @@ const init = function () {
     const dataResults = response.hits;
     console.log(dataResults);
 
+
+    
+    DOMSelectors.dataBox.innerHTML = "";
     //display data function
     dataResults.forEach(function (recipeInstance) {
       //compile health label array into one string
@@ -31,7 +34,6 @@ const init = function () {
         healthLabelsArray.push(healthLabel);
       });
 
-      DOMSelectors.dataBox.innerHTML = "";
       //create each recipe card
       DOMSelectors.dataBox.insertAdjacentHTML(
         "afterbegin",

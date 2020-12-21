@@ -954,21 +954,21 @@ var init = function init() {
             case 3:
               response = _context2.sent;
               dataResults = response.hits;
-              console.log(dataResults); //display data function
+              console.log(dataResults);
+              _DOM.DOMSelectors.dataBox.innerHTML = ""; //display data function
 
               dataResults.forEach(function (recipeInstance) {
                 //compile health label array into one string
                 var healthLabelsArray = [];
                 recipeInstance.recipe.healthLabels.forEach(function (healthLabel) {
                   healthLabelsArray.push(healthLabel);
-                });
-                _DOM.DOMSelectors.dataBox.innerHTML = ""; //create each recipe card
+                }); //create each recipe card
 
                 _DOM.DOMSelectors.dataBox.insertAdjacentHTML("afterbegin", "\n                <div class=\"recipe\">\n                    <a  href=\"".concat(recipeInstance.recipe.url, "\">\n                        <div class=\"title\">").concat(recipeInstance.recipe.label, "</div>\n                        <div class=\"healthLabels\">").concat(healthLabelsArray, "</div>  \n                        <img src=\"").concat(recipeInstance.recipe.image, "\" >\n                        <div class=\"link hidden\">").concat(recipeInstance.recipe.url, "</div>\n                        <div class=\"imgSrc hidden\" >").concat(recipeInstance.recipe.image, "</div>\n                    </a>\n                    <div class=\"saveForLaterBtn\" >Save for Later?</div>\n                </div>\n            "));
               });
               saveRecipe();
 
-            case 8:
+            case 9:
             case "end":
               return _context2.stop();
           }
