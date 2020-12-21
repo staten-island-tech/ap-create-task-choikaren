@@ -30,6 +30,8 @@ const init = function () {
       recipeInstance.recipe.healthLabels.forEach(function (healthLabel) {
         healthLabelsArray.push(healthLabel);
       });
+
+      DOMSelectors.dataBox.innerHTML = "";
       //create each recipe card
       DOMSelectors.dataBox.insertAdjacentHTML(
         "afterbegin",

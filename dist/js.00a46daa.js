@@ -961,7 +961,8 @@ var init = function init() {
                 var healthLabelsArray = [];
                 recipeInstance.recipe.healthLabels.forEach(function (healthLabel) {
                   healthLabelsArray.push(healthLabel);
-                }); //create each recipe card
+                });
+                _DOM.DOMSelectors.dataBox.innerHTML = ""; //create each recipe card
 
                 _DOM.DOMSelectors.dataBox.insertAdjacentHTML("afterbegin", "\n                <div class=\"recipe\">\n                    <a  href=\"".concat(recipeInstance.recipe.url, "\">\n                        <div class=\"title\">").concat(recipeInstance.recipe.label, "</div>\n                        <div class=\"healthLabels\">").concat(healthLabelsArray, "</div>  \n                        <img src=\"").concat(recipeInstance.recipe.image, "\" >\n                        <div class=\"link hidden\">").concat(recipeInstance.recipe.url, "</div>\n                        <div class=\"imgSrc hidden\" >").concat(recipeInstance.recipe.image, "</div>\n                    </a>\n                    <div class=\"saveForLaterBtn\" >Save for Later?</div>\n                </div>\n            "));
               });
