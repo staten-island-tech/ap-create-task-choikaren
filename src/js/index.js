@@ -39,7 +39,7 @@ const init = function () {
         "afterbegin",
         `
                 <div class="recipe">
-                    <a  href="${recipeInstance.recipe.url}">
+                    <a href="${recipeInstance.recipe.url}" target="_blank">
                         <div class="title">${recipeInstance.recipe.label}</div>
                         <div class="healthLabels">${healthLabelsArray}</div>  
                         <img src="${recipeInstance.recipe.image}" >
@@ -93,7 +93,7 @@ const init = function () {
         "afterbegin",
         `
               <div class="recipe">
-                  <a  href="${savedRecipe.link}">
+                  <a  href="${savedRecipe.link}"  target="_blank">
                       <div class="title">${savedRecipe.title}</div>
                       <div class="healthLabels">${savedRecipe.labels}</div>  
                       <img src="${savedRecipe.imgSrc}" >

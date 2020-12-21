@@ -964,7 +964,7 @@ var init = function init() {
                   healthLabelsArray.push(healthLabel);
                 }); //create each recipe card
 
-                _DOM.DOMSelectors.dataBox.insertAdjacentHTML("afterbegin", "\n                <div class=\"recipe\">\n                    <a  href=\"".concat(recipeInstance.recipe.url, "\">\n                        <div class=\"title\">").concat(recipeInstance.recipe.label, "</div>\n                        <div class=\"healthLabels\">").concat(healthLabelsArray, "</div>  \n                        <img src=\"").concat(recipeInstance.recipe.image, "\" >\n                        <div class=\"link hidden\">").concat(recipeInstance.recipe.url, "</div>\n                        <div class=\"imgSrc hidden\" >").concat(recipeInstance.recipe.image, "</div>\n                    </a>\n                    <div class=\"saveForLaterBtn\" >Save for Later?</div>\n                </div>\n            "));
+                _DOM.DOMSelectors.dataBox.insertAdjacentHTML("afterbegin", "\n                <div class=\"recipe\">\n                    <a href=\"".concat(recipeInstance.recipe.url, "\" target=\"_blank\">\n                        <div class=\"title\">").concat(recipeInstance.recipe.label, "</div>\n                        <div class=\"healthLabels\">").concat(healthLabelsArray, "</div>  \n                        <img src=\"").concat(recipeInstance.recipe.image, "\" >\n                        <div class=\"link hidden\">").concat(recipeInstance.recipe.url, "</div>\n                        <div class=\"imgSrc hidden\" >").concat(recipeInstance.recipe.image, "</div>\n                    </a>\n                    <div class=\"saveForLaterBtn\" >Save for Later?</div>\n                </div>\n            "));
               });
               saveRecipe();
 
@@ -1010,7 +1010,7 @@ var init = function init() {
   var displaySavedRecipes = function displaySavedRecipes() {
     _DOM.DOMSelectors.favoriteBox.innerHTML = "";
     savedArray.forEach(function (savedRecipe) {
-      _DOM.DOMSelectors.favoriteBox.insertAdjacentHTML("afterbegin", "\n              <div class=\"recipe\">\n                  <a  href=\"".concat(savedRecipe.link, "\">\n                      <div class=\"title\">").concat(savedRecipe.title, "</div>\n                      <div class=\"healthLabels\">").concat(savedRecipe.labels, "</div>  \n                      <img src=\"").concat(savedRecipe.imgSrc, "\" >\n                  </a>\n              </div>\n              "));
+      _DOM.DOMSelectors.favoriteBox.insertAdjacentHTML("afterbegin", "\n              <div class=\"recipe\">\n                  <a  href=\"".concat(savedRecipe.link, "\"  target=\"_blank\">\n                      <div class=\"title\">").concat(savedRecipe.title, "</div>\n                      <div class=\"healthLabels\">").concat(savedRecipe.labels, "</div>  \n                      <img src=\"").concat(savedRecipe.imgSrc, "\" >\n                  </a>\n              </div>\n              "));
     });
   };
 
@@ -1089,7 +1089,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62434" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63932" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
