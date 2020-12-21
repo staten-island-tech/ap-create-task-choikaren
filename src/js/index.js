@@ -1,4 +1,3 @@
-
 import "regenerator-runtime/runtime";
 import { DOMSelectors } from "./DOM";
 
@@ -18,16 +17,12 @@ const init = function () {
     const apiKey = "40c625a257418ae88ce46895dbab8f15";
     let userInput;
 
-
-
     const displayData = async function () {
-
         let query = `https://api.edamam.com/search?q=${userInput}&app_id=${apiID}&app_key=${apiKey}`;
         const response = await grabData(query);
         response;
         const dataResults = response.hits;
         console.log(dataResults);
-
 
         dataResults.forEach(function (recipeInstance) {
             let healthLabelsArray = [];
@@ -35,7 +30,8 @@ const init = function () {
                 healthLabelsArray.push(healthLabel);
             });
 
-            DOMSelectors.dataBox.insertAdjacentHTML("afterbegin",
+            DOMSelectors.dataBox.insertAdjacentHTML(
+                "afterbegin",
                 `
                 <div class="recipe">
                     <a  href="${recipeInstance.recipe.url}">
@@ -50,12 +46,12 @@ const init = function () {
                 </div>
 
             `
-            )
+            );
+        });
 
-        }
-        )
+
         console.log(userInput);
-        console.log(query)
+        console.log(query);
 
         const saveBtns = document.getElementsByClassName("saveForLaterBtn");
         const saveForLaterArray = Array.from(saveBtns);
@@ -66,66 +62,66 @@ const init = function () {
         console.log(saveForLaterArray);
         console.log(recipeArray);
 
-        const saved = function () {
-            let savedArray = [];
+        let savedArray = [];
 
-            const displaySaved = function () {
-                savedArray.forEach(function (savedRecipe) {
-                    DOMSelectors.favoriteBox.insertAdjacentHTML("afterbegin",
-                        `
-                    <div class="recipe">
-                        <a  href="${savedRecipe.imgSrc}">
-                            <div class="title">${savedRecipe.title}</div>
-                            <div class="healthLabels">${savedRecipe.labels}</div>  
-                            <img src="${savedRecipe.imgSrc}" >
-                        </a>
-                    
-                    </div>
-    
+
+        const displaySaved = function () {
+            savedArray.forEach(function (savedRecipe) {
+                // DOMSelectors.favoriteBox.innerHTML= "";
+                DOMSelectors.favoriteBox.insertAdjacentHTML(
+                    "afterbegin",
                     `
-                    )
-                })
-            };
+                  <div class="recipe">
+                      <a  href="${savedRecipe.link}">
+                          <div class="title">${savedRecipe.title}</div>
+                          <div class="healthLabels">${savedRecipe.labels}</div>  
+                          <img src="${savedRecipe.imgSrc}" >
+                      </a>
+                  
+                  </div>
+  
+                  `
+                );
+            });
+        };
 
+        const saved = function () {
             recipeArray.forEach(function (recipe) {
                 recipe.children[1].addEventListener("click", function () {
                     recipe.children[1].classList.add("bold");
                     recipe.children[1].innerHTML = "Added to Favorites";
 
                     let savedRecipe = {
-                        "title": recipe.children[0].children[0].textContent,
-                        "labels": recipe.children[0].children[1].textContent,
-                        "link": recipe.children[0].children[3].textContent,
-                        "imgSrc": recipe.children[0].children[4].textContent,
-
-                    }
+                        title: recipe.children[0].children[0].textContent,
+                        labels: recipe.children[0].children[1].textContent,
+                        link: recipe.children[0].children[3].textContent,
+                        imgSrc: recipe.children[0].children[4].textContent,
+                    };
                     // console.log(savedRecipe);
 
                     savedArray.push(savedRecipe);
                     console.log(savedArray);
                     displaySaved();
-
-                })
-            }
-            );
-
-
-        }
+                });
+            });
+        };
         saved();
 
-        DOMSelectors.favoriteBtn.addEventListener("click", function () {
-            DOMSelectors.dataBox.classList.toggle("noDisplay");
-            DOMSelectors.favoriteBox.classList.toggle("display")
-        }
-        )
 
-
+        displaySaved();
     };
     displayData();
 
+    DOMSelectors.favoriteBtn.addEventListener("click", function () {
+        DOMSelectors.dataBox.classList.toggle("noDisplay");
+        DOMSelectors.favoriteBox.classList.toggle("display");
+        DOMSelectors.clearFavoriteBtn.classList.toggle("display")
+    });
 
-
-
+    DOMSelectors.clearFavoriteBtn.addEventListener("click", function () {
+        let savedArray = [];
+        displaySaved();
+    })
 
     DOMSelectors.submitBtn.addEventListener("click", function () {
         userInput = DOMSelectors.userSearch.value;
@@ -133,15 +129,11 @@ const init = function () {
     });
 
     DOMSelectors.userSearch.addEventListener("keyup", function (event) {
-        if (event.key === 'Enter') {
+        if (event.key === "Enter") {
             event.preventDefault();
             DOMSelectors.submitBtn.click();
         }
     });
-
-}
-
-
+};
 
 init();
-

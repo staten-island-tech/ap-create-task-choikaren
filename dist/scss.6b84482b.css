@@ -9,24 +9,32 @@ body {
 body {
   background-color: #b5cabf;
   padding: 3rem;
+  display: grid;
+  grid-row-gap: 2rem;
 }
 
 .search {
   width: 100%;
   margin: auto;
-  padding-bottom: 2rem;
 }
-.search input {
+
+input {
   width: 100%;
   max-width: 30rem;
 }
-.search input, .search button {
+
+input, button {
   height: 3rem;
   font-size: 2rem;
   font-family: "Libre Baskerville", serif;
 }
-.search #submitBtn {
+
+#submitBtn {
   display: none;
+}
+
+#favoriteBtn {
+  width: 20rem;
 }
 
 a {
@@ -85,8 +93,12 @@ img {
   display: none;
 }
 
+#clearFavoriteBtn {
+  display: none;
+}
+
 .display {
-  display: grid;
+  display: grid !important;
 }
 
 .noDisplay {

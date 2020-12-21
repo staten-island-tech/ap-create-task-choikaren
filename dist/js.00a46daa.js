@@ -881,6 +881,7 @@ var DOMSelectors = {
   userSearch: document.querySelector("#recipeSearch"),
   submitBtn: document.querySelector("#submitBtn"),
   favoriteBtn: document.querySelector("#favoriteBtn"),
+  clearFavoriteBtn: document.querySelector("#clearFavoriteBtn"),
   recipe: document.querySelector(".recipe")
 };
 exports.DOMSelectors = DOMSelectors;
@@ -941,7 +942,7 @@ var init = function init() {
 
   var displayData = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-      var query, response, dataResults, saveBtns, saveForLaterArray, recipe, recipeArray, saved;
+      var query, response, dataResults, saveBtns, saveForLaterArray, recipe, recipeArray, savedArray, displaySaved, saved;
       return regeneratorRuntime.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
@@ -971,25 +972,25 @@ var init = function init() {
               recipeArray = Array.from(recipe);
               console.log(saveForLaterArray);
               console.log(recipeArray);
+              savedArray = [];
+
+              displaySaved = function displaySaved() {
+                savedArray.forEach(function (savedRecipe) {
+                  // DOMSelectors.favoriteBox.innerHTML= "";
+                  _DOM.DOMSelectors.favoriteBox.insertAdjacentHTML("afterbegin", "\n                  <div class=\"recipe\">\n                      <a  href=\"".concat(savedRecipe.link, "\">\n                          <div class=\"title\">").concat(savedRecipe.title, "</div>\n                          <div class=\"healthLabels\">").concat(savedRecipe.labels, "</div>  \n                          <img src=\"").concat(savedRecipe.imgSrc, "\" >\n                      </a>\n                  \n                  </div>\n  \n                  "));
+                });
+              };
 
               saved = function saved() {
-                var savedArray = [];
-
-                var displaySaved = function displaySaved() {
-                  savedArray.forEach(function (savedRecipe) {
-                    _DOM.DOMSelectors.favoriteBox.insertAdjacentHTML("afterbegin", "\n                    <div class=\"recipe\">\n                        <a  href=\"".concat(savedRecipe.imgSrc, "\">\n                            <div class=\"title\">").concat(savedRecipe.title, "</div>\n                            <div class=\"healthLabels\">").concat(savedRecipe.labels, "</div>  \n                            <img src=\"").concat(savedRecipe.imgSrc, "\" >\n                        </a>\n                    \n                    </div>\n    \n                    "));
-                  });
-                };
-
                 recipeArray.forEach(function (recipe) {
                   recipe.children[1].addEventListener("click", function () {
                     recipe.children[1].classList.add("bold");
                     recipe.children[1].innerHTML = "Added to Favorites";
                     var savedRecipe = {
-                      "title": recipe.children[0].children[0].textContent,
-                      "labels": recipe.children[0].children[1].textContent,
-                      "link": recipe.children[0].children[3].textContent,
-                      "imgSrc": recipe.children[0].children[4].textContent
+                      title: recipe.children[0].children[0].textContent,
+                      labels: recipe.children[0].children[1].textContent,
+                      link: recipe.children[0].children[3].textContent,
+                      imgSrc: recipe.children[0].children[4].textContent
                     }; // console.log(savedRecipe);
 
                     savedArray.push(savedRecipe);
@@ -1000,14 +1001,9 @@ var init = function init() {
               };
 
               saved();
+              displaySaved();
 
-              _DOM.DOMSelectors.favoriteBtn.addEventListener("click", function () {
-                _DOM.DOMSelectors.dataBox.classList.toggle("noDisplay");
-
-                _DOM.DOMSelectors.favoriteBox.classList.toggle("display");
-              });
-
-            case 19:
+            case 21:
             case "end":
               return _context2.stop();
           }
@@ -1022,13 +1018,26 @@ var init = function init() {
 
   displayData();
 
+  _DOM.DOMSelectors.favoriteBtn.addEventListener("click", function () {
+    _DOM.DOMSelectors.dataBox.classList.toggle("noDisplay");
+
+    _DOM.DOMSelectors.favoriteBox.classList.toggle("display");
+
+    _DOM.DOMSelectors.clearFavoriteBtn.classList.toggle("display");
+  });
+
+  _DOM.DOMSelectors.clearFavoriteBtn.addEventListener("click", function () {
+    var savedArray = [];
+    displaySaved();
+  });
+
   _DOM.DOMSelectors.submitBtn.addEventListener("click", function () {
     userInput = _DOM.DOMSelectors.userSearch.value;
     displayData();
   });
 
   _DOM.DOMSelectors.userSearch.addEventListener("keyup", function (event) {
-    if (event.key === 'Enter') {
+    if (event.key === "Enter") {
       event.preventDefault();
 
       _DOM.DOMSelectors.submitBtn.click();
